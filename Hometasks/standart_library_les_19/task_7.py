@@ -6,5 +6,6 @@
 from collections import Counter
 
 
-sentense = 'This is my new task for homework. Topic - libraries'
-print(Counter(sentense))
+if __name__ == '__main__':
+    sentense = 'This is my new task for homework. Topic - libraries'
+    print(Counter(sentense))
