@@ -8,11 +8,13 @@
 from decimal import Decimal
 
 
-_str = '2.45 2.69 2.45 3.45 2.00 0.04 7.25'
-_list = _str.split()
-_sum = 0
+if __name__ == '__main__':
+    _str = '2.45 2.69 2.45 3.45 2.00 0.04 7.25'
+    _list = _str.split()
+    _sum = 0
 
-for item in _list:
-    _sum += Decimal(item)
+    for item in _list:
+        _sum += Decimal(item)
 
-print(_sum)
+    print(_sum)
+    print(sorted(_list))
