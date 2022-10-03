@@ -8,11 +8,11 @@
 from functools import partial
 
 
+def func(u, v, w, x):
+    return u * 4 + v * 3 + w * 2 + x
+
+
 if __name__ == '__main__':
-    def func(u, v, w, x):
-        return u*4 + v*3 + w*2 + x
-
-
     p_func = partial(func, 9, 7, 1)
     # p_func = partial(func, u=9, v=7, w=1)  #такой вариант почему-то не работает
     print(p_func(1))
