@@ -33,7 +33,6 @@ def modify_table(conn, modify_table_sql):
         conn.commit()
     except Error as e:
         print(e)
-    print('Insert end')
 
 
 def select_table(conn, select_table_sql):
@@ -47,7 +46,6 @@ def select_table(conn, select_table_sql):
             print(row)
     except Error as e:
         print(e)
-    print('End')
 
 
 def main():
@@ -56,14 +54,14 @@ def main():
     sql_create_projects_table = """
     CREATE TABLE Students
     (
-        id serial PRIMARY KEY,
-        fio CHARACTER VARYING(40),
-        group_num SMALLINT
+        id INTEGER  PRIMARY KEY AUTOINCREMENT,
+        fio TEXT(40),
+        group_num INTEGER
     );
     """
 
     sql_insert = """
-        INSERT INTO students (fio, group_num) VALUES
+        INSERT INTO Students (fio, group_num) VALUES
         ('Сафонов Александр Робертович', 14),
         ('Смирнова Ева Львовна', 4),
         ('Богданов Дмитрий Даниилович', 15),
@@ -78,13 +76,13 @@ def main():
 
     sql_select = """
         SELECT * FROM Students
-        WHERE id % 2 = 0
+        WHERE id % 2 = 0;
         """
 
     conn = create_connection(database)
 
     if conn is not None:
-        # create_table(conn, sql_create_projects_table)
+        create_table(conn, sql_create_projects_table)
         modify_table(conn, sql_insert)
         select_table(conn, sql_select)
         conn.close()
