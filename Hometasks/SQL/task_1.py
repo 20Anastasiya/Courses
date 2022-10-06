@@ -1,6 +1,9 @@
 """
 [1] Создайте таблицу учеников (ФИО + номер группы). Заполните таблицу 10-ю записями.
 Выберите записи только с четными id.
+
+[2] Измените таблицу учеников, добавив поле email. Обновите таблицу, заполнив поле email.
+Напишите запрос для нахождения дублей в поле email.
 """
 
 import sqlite3
@@ -48,6 +51,15 @@ def select_table(conn, select_table_sql):
         print(e)
 
 
+def alter_table(conn, alter_table_sql):
+    try:
+        c = conn.cursor()
+        c.execute(alter_table_sql)
+        conn.commit()
+    except Error as e:
+        print(e)
+
+
 def main():
     database = r"test_1.db"
 
@@ -74,16 +86,36 @@ def main():
         ('Калинин Фёдор Иванович', 9);
         """
 
+    mail = 'paChet@mail.ru'
+    # mail_1 = 'pa1h@mail.ru'
+    # mail_2 = 'pa2h@mail.ru'
+    # mail_nechet = 'paNechet@mail.ru'
+    sql_insert_email = f"""
+    UPDATE Students SET email = '{mail}' WHERE id % 2 = 0;
+    """
+
+    # """
+    # UPDATE Students SET email = '{mail_1}' WHERE id = 1;
+    # UPDATE Students SET email = '{mail_2}' WHERE id =3;
+    # UPDATE Students SET email = '{mail_nechet}' WHERE id % 2 > 0;
+    # """
+
     sql_select = """
-        SELECT * FROM Students
-        WHERE id % 2 = 0;
+        SELECT * FROM Students;
         """
+
+    sql_alter = """
+    ALTER TABLE Students
+    ADD email TEXT;
+    """
 
     conn = create_connection(database)
 
     if conn is not None:
-        create_table(conn, sql_create_projects_table)
-        modify_table(conn, sql_insert)
+        # create_table(conn, sql_create_projects_table)
+        # modify_table(conn, sql_insert)
+        # alter_table(conn, sql_alter)
+        # select_table(conn, sql_insert_email)
         select_table(conn, sql_select)
         conn.close()
     else:
