@@ -87,22 +87,23 @@ def main():
         """
 
     mail = 'paChet@mail.ru'
-    # mail_1 = 'pa1h@mail.ru'
-    # mail_2 = 'pa2h@mail.ru'
-    # mail_nechet = 'paNechet@mail.ru'
+    mail_1 = 'pa1h@mail.ru'
+    mail_2 = 'pa2h@mail.ru'
+    mail_nechet = 'paNechet@mail.ru'
     sql_insert_email = f"""
-    UPDATE Students SET email = '{mail}' WHERE id % 2 = 0;
+    --UPDATE Students SET email = '{mail}' WHERE id % 2 = 0;
+    --UPDATE Students SET email = '{mail_nechet}' WHERE id % 2 > 0;
+    --UPDATE Students SET email = '{mail_1}' WHERE id = 1;
+    UPDATE Students SET email = '{mail_2}' WHERE id =3;
     """
-
-    # """
-    # UPDATE Students SET email = '{mail_1}' WHERE id = 1;
-    # UPDATE Students SET email = '{mail_2}' WHERE id =3;
-    # UPDATE Students SET email = '{mail_nechet}' WHERE id % 2 > 0;
-    # """
 
     sql_select = """
         SELECT * FROM Students;
         """
+
+    sql_select_dublicate = """
+    SELECT * FROM Students WHERE email IN (SELECT email FROM Students GROUP BY email HAVING count(*)>1);
+    """
 
     sql_alter = """
     ALTER TABLE Students
@@ -115,8 +116,10 @@ def main():
         # create_table(conn, sql_create_projects_table)
         # modify_table(conn, sql_insert)
         # alter_table(conn, sql_alter)
-        # select_table(conn, sql_insert_email)
+        # alter_table(conn, sql_insert_email)
         select_table(conn, sql_select)
+        print('---------- дальше вывод дубликатов')
+        select_table(conn, sql_select_dublicate)
         conn.close()
     else:
         print("Error! Cannot create the database connection.")
